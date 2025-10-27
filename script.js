@@ -65,6 +65,7 @@ const gameController = (function (theGameboard) {
         if (p2name) {
             player2 = Player(p2name, "X");
         }
+        currentPlayer = player1;
     }
     function play(i, j) {
         let validPlay = theGameboard.putMarker(currentPlayer.getMarker(), i, j);
@@ -73,12 +74,12 @@ const gameController = (function (theGameboard) {
         let draw = gameController.isDraw();
         if (win) {
             console.log(`${currentPlayer.getName()} has won!`);
-            setTimeout(() => displayController.newGame(currentPlayer.getName()), 1000);
+            setTimeout(() => displayController.newGame(currentPlayer.getName()), 500);
 
         }
         if (draw) {
             console.log("A draw has occured!");
-            setTimeout(() => displayController.newGame("Draw"), 1000);
+            setTimeout(() => displayController.newGame("Draw"), 500);
         }
         if (validPlay && !win && !draw) {
             togglePlayer();
@@ -136,10 +137,11 @@ const gameController = (function (theGameboard) {
 
 const displayController = (function () {
     const squares = document.querySelectorAll(".square");
-    const restart = document.querySelector(".restart");
-    const dialog = document.querySelector("dialog.game-over");
-    const startDialog = document.querySelector("dialog.get-names");
-    const start = document.querySelector(".start");
+    const restart = document.querySelector("button.restart");
+    const dialog = document.querySelector("dialog.restart");
+    const startDialog = document.querySelector("dialog.start");
+    const start = document.querySelector("button.start");
+    startDialog.showModal();
 
     const listeners = (function () {
         for (let i = 0; i < squares.length; i++) {

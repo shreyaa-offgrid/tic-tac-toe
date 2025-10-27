@@ -27,7 +27,40 @@ body{
     justify-content: center;
     font-size: 3em;
 }
-dialog.game-over{
-    width: 90vh;
-    height: 30vh;
+dialog{
+    width: 50vw;
+    height: 50vh;
+}
+dialog.start[open]{
+    display: flex;
+    border: none;
+    border-radius: 2em;
+    padding: 2em;
+    align-items: center;
+    justify-content:space-around;
+}
+dialog.start>form{
+    font-size: 1.5em;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr 2fr;
+    row-gap: 2em;
+}
+button.start{
+    margin: 2em 4em;
+    height: 3em;
+    grid-column: 1/3;
+    font-size: 1em;
+    border: none;
+    border-radius: 2em;
+    background-color:blue;
+    color: white;
+}
+dialog.start>form>input{
+    font-size: 1em;
+    border: none;
+    border-radius: 1em;
+    padding-left: 1em;
+    background-color: lightblue;
 }
