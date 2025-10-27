@@ -14,11 +14,19 @@
         <p>name: player1</p>
         <p>marker: O</p>
     </div>
-
+    <dialog class="get-names" open>
+        <form action="">
+            <label for="p1-name">Player 1 Name</label>
+            <input type="text" id="p1-name">
+            <label for="p2-name">Player 2 Name:</label>
+            <input type="text" id="p2-name">
+            <button type="submit" class="start">Start!</button>
+        </form>
+    </dialog>
     <div class="game">
         <h1>Tic Tac Toe</h1>
         <div class="gameboard">
-            <div class="square" data-row="0" data-col="0" ></div>
+            <div class="square" data-row="0" data-col="0"></div>
             <div class="square" data-row="0" data-col="1"></div>
             <div class="square" data-row="0" data-col="2"></div>
             <div class="square" data-row="1" data-col="0"></div>
@@ -28,14 +36,14 @@
             <div class="square" data-row="2" data-col="1"></div>
             <div class="square" data-row="2" data-col="2"></div>
         </div>
-        <dialog>
-            <div class="message">
-                Player 1 wins!
-            </div>
-            <button class="restart">Restart?</button>
-        </dialog>
     </div>
-
+    <dialog class="game-over">
+        <h3>GAME OVER</h3>
+        <div class="message">
+            Player 1 wins!
+        </div>
+        <button class="restart">Restart?</button>
+    </dialog>
     <div class="player2">
         <h2>Player 2</h2>
         <p>name: player2</p>

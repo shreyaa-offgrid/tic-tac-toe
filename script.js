@@ -58,22 +58,29 @@ const gameController = (function (theGameboard) {
     let player1 = Player("player1", "O");
     let player2 = Player("player2", "X");
     let currentPlayer = player1;
-    console.log(`player 1 is: ${player1.getName()}. 
-    Their marker is ${player1.getMarker()}`);
-    console.log(`player 2 is: ${player2.getName()}. 
-    Their marker is ${player2.getMarker()}`);
+    function createPlayers(p1name, p2name) {
+        if (p1name) {
+            player1 = Player(p1name, "O");
+        }
+        if (p2name) {
+            player2 = Player(p2name, "X");
+        }
+    }
     function play(i, j) {
         let validPlay = theGameboard.putMarker(currentPlayer.getMarker(), i, j);
         theGameboard.renderBoard();
-        if (gameController.hasWon(currentPlayer.getMarker())) {
+        let win = gameController.hasWon(currentPlayer.getMarker());
+        let draw = gameController.isDraw();
+        if (win) {
             console.log(`${currentPlayer.getName()} has won!`);
-            setTimeout(2000, displayController.newGame(currentPlayer.getName()));
+            setTimeout(() => displayController.newGame(currentPlayer.getName()), 1000);
+
         }
-        if(gameController.isDraw()){
+        if (draw) {
             console.log("A draw has occured!");
-            setTimeout(2000, displayController.newGame("Draw"));
+            setTimeout(() => displayController.newGame("Draw"), 1000);
         }
-        if (validPlay) {
+        if (validPlay && !win && !draw) {
             togglePlayer();
         }
     }
@@ -120,6 +127,7 @@ const gameController = (function (theGameboard) {
         return false;
     }
     return {
+        createPlayers,
         play,
         hasWon,
         isDraw,
@@ -129,13 +137,33 @@ const gameController = (function (theGameboard) {
 const displayController = (function () {
     const squares = document.querySelectorAll(".square");
     const restart = document.querySelector(".restart");
-    const dialog = document.querySelector("dialog");
+    const dialog = document.querySelector("dialog.game-over");
+    const startDialog = document.querySelector("dialog.get-names");
+    const start = document.querySelector(".start");
+
     const listeners = (function () {
         for (let i = 0; i < squares.length; i++) {
             squares[i].addEventListener("click", playMove);
         }
         restart.addEventListener("click", restartGame);
+        start.addEventListener("click", updateNames);
     })();
+
+    function updateNames(e) {
+        e.preventDefault();
+        startDialog.close();
+        const p1name = document.getElementById("p1-name").value;
+        const p2name = document.getElementById("p2-name").value;
+        const p1Display = document.querySelector(".player1").childNodes[3];
+        const p2Display = document.querySelector(".player2").childNodes[3];
+        if(p1name){
+            p1Display.textContent = `name: ${p1name}`;
+        }
+        if(p2name){
+            p2Display.textContent = `name: ${p2name}`;
+        }
+        gameController.createPlayers(p1name, p2name);
+    }
     function playMove(e) {
         const square = e.target;
         const data = square.dataset;
@@ -150,7 +178,7 @@ const displayController = (function () {
     }
     function newGame(winner) {
         let msg = `${winner} has won!`.toUpperCase();
-        if(winner==="Draw"){
+        if (winner === "Draw") {
             msg = "A draw has occured!"
         }
         const message = document.querySelector(".message");
