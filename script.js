@@ -83,6 +83,7 @@ const gameController = (function (theGameboard) {
         }
         if (validPlay && !win && !draw) {
             togglePlayer();
+            turnIndicator();
         }
     }
     function togglePlayer() {
@@ -127,11 +128,21 @@ const gameController = (function (theGameboard) {
         }
         return false;
     }
+    function turnIndicator(){
+        if(currentPlayer===player1){
+            displayController.p1.classList.add("turn");
+            displayController.p2.classList.remove("turn");
+        }else if(currentPlayer===player2){
+            displayController.p2.classList.add("turn");
+            displayController.p1.classList.remove("turn");
+        }
+    };
     return {
         createPlayers,
         play,
         hasWon,
         isDraw,
+        turnIndicator,
     }
 })(theGameboard);
 
@@ -141,6 +152,8 @@ const displayController = (function () {
     const dialog = document.querySelector("dialog.restart");
     const startDialog = document.querySelector("dialog.start");
     const start = document.querySelector("button.start");
+    const p1 = document.querySelector(".player1");
+    const p2 = document.querySelector(".player2");
     startDialog.showModal();
 
     const listeners = (function () {
@@ -154,6 +167,7 @@ const displayController = (function () {
     function updateNames(e) {
         e.preventDefault();
         startDialog.close();
+        gameController.turnIndicator();
         const p1name = document.getElementById("p1-name").value;
         const p2name = document.getElementById("p2-name").value;
         const p1Display = document.querySelector(".player1").childNodes[3];
@@ -173,9 +187,14 @@ const displayController = (function () {
         let j = parseInt(data.col);
         gameController.play(i, j);
     }
+    function resetTurn() {
+        currentPlayer = player1;
+    }
     function restartGame() {
         theGameboard.clearBoard();
         theGameboard.renderBoard();
+        gameController.createPlayers();
+        gameController.turnIndicator();
         dialog.close();
     }
     function newGame(winner) {
@@ -189,6 +208,8 @@ const displayController = (function () {
     }
     return {
         squares,
+        p1,
+        p2,
         newGame,
     }
 })();
