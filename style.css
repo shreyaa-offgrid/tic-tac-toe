@@ -1,7 +1,22 @@
+@font-face {
+    font-family: "relax brush";
+    src: url("./fonts/RelaxBrush-Regular.woff2"),
+    url("./fonts/RelaxBrush-Regular.woff");
+}
 body{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    background-color: #ABE7B2;
+}
+h1,h2,h3,p{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    color: #ECF4E8;
+    font-size: 5em;
+    font-family: "relax brush",'Times New Roman', Times, serif;
 }
 .game{
     display: flex;
@@ -22,22 +37,30 @@ body{
     display: flex;
     height: 100%;
     width: 100%;
-    border: 1px black solid;
+    border:none;
+    border-radius: 0.5em;
     align-items: center;
     justify-content: center;
     font-size: 3em;
+    background-color: #ECF4E8;
+    font-family: "relax brush",'Times New Roman', Times, serif;
 }
 dialog{
     width: 50vw;
     height: 50vh;
+    background-color: #ECF4E8;
+}
+::backdrop{
+    background-color:#ABE7B2E0;
 }
 dialog.start[open]{
     display: flex;
-    border: none;
+    border: 2px #CBF3BB solid;
     border-radius: 2em;
     padding: 2em;
     align-items: center;
     justify-content:space-around;
+
 }
 dialog.start>form{
     font-size: 1.5em;
@@ -46,21 +69,78 @@ dialog.start>form{
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 1fr 2fr;
     row-gap: 2em;
+    padding-top: 1em;
+    font-family: monospace;
 }
 button.start{
-    margin: 2em 4em;
+    margin: 1em 4em;
     height: 3em;
     grid-column: 1/3;
     font-size: 1em;
     border: none;
     border-radius: 2em;
-    background-color:blue;
+    background-color:#93BFC7;
     color: white;
+}
+button.start:hover{
+    background-color:#ABE7B2 ;
+    transform: scale(1.01);
+}
+button.start:active{
+    transform: scale(0.99);
 }
 dialog.start>form>input{
     font-size: 1em;
     border: none;
     border-radius: 1em;
     padding-left: 1em;
-    background-color: lightblue;
 }
+dialog.start>form>input:focus{
+    border: 3px #93BFC7 solid;
+    outline: none;
+}
+dialog.start>form>label{
+    margin-top: 1em;
+}
+.player{
+    background-color:#93BFC7;
+    font-size: 2em;
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+    padding: 1em;
+    border-radius: 1em;
+    font-family: monospace;
+}
+dialog.restart[open]{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-size: 2em;
+    font-family: monospace;
+    border: 2px #CBF3BB solid;
+    border-radius: 2em;
+    padding: 2em;
+    align-items: center;
+    justify-content:space-around;
+}
+h3{
+    font-size: 3em;
+}
+button.restart{
+    background-color: #93BFC7;
+    border: none;
+    border-radius: 1em;
+    font-family: monospace;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 1em;
+}
+button.restart:hover{
+    transform:scale(1.02);
+    background-color: #93BFD9;
+}
+button.restart:active{
+    transform: scale(0.98);
+}
+
